@@ -1,6 +1,6 @@
 @extends('master')
 @section('noi_dung')
-<div class="row">
+<div class="row" id="app">
     <div class="col-12">
         <div class="card  shadow-lg p-3 mb-5 bg-body rounded">
             <div class="card-header mt-2">
@@ -29,15 +29,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th class="align-middle text-nowrap text-center">#</th>
-                            <td class="align-middle text-nowrap">Phùng Văn Mạnh</td>
-                            <td class="align-middle text-nowrap">manhsubcheo@gmail.com</td>
-                            <td class="align-middle text-nowrap">0988765421</td>
-                            <td class="align-middle text-nowrap">32 Xuân Diệu</td>
-                            <td class="align-middle text-nowrap">Quản Lý</td>
+                        <tr v-for="(v, k) in list_nhan_vien">
+                            <th class="align-middle text-nowrap text-center">@{{ k + 1 }}</th>
+                            <td class="align-middle text-nowrap">@{{ v.ho_va_ten }}</td>
+                            <td class="align-middle text-nowrap">@{{ v.email }}</td>
+                            <td class="align-middle text-nowrap">@{{ v.so_dien_thoai }}</td>
+                            <td class="align-middle text-nowrap">@{{ v.dia_chi }}</td>
+                            <td class="align-middle text-nowrap">@{{ v.id_chuc_vu }}</td>
                             <td class="align-middle text-nowrap text-center">
-                                <button class="btn btn-success">Hoạt Động</button>
+                                <button v-if="v.tinh_trang == 1" class="btn btn-success">Hoạt Động</button>
+                                <button v-else class="btn btn-warning">Tạm Dừng</button>
                             </td>
                             <td class="align-middle text-nowrap text-center">
                                 <button class="btn btn-primary" data-bs-toggle="modal"
@@ -190,4 +191,27 @@
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    new Vue({
+        el      :       '#app',
+        data    :       {
+            list_nhan_vien   :   [],
+        },
+        created()       {
+            this.loadDataNhanVien();
+        },
+        methods:        {
+            // loadDataNhanVien  -> lên url http://127.0.0.1:8000/api/admin/nhan-vien/lay-du-lieu
+            loadDataNhanVien()   {
+                axios
+                    .get('http://127.0.0.1:8000/api/admin/nhan-vien/lay-du-lieu')
+                    .then((res) =>  {
+                        this.list_nhan_vien = res.data.nhan_vien;
+                    });
+            }
+        },
+    });
+</script>
 @endsection
