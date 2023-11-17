@@ -1,6 +1,6 @@
 @extends('master')
 @section('noi_dung')
-<div class="row">
+<div class="row" id="app">
     <div class="col-5">
         <div class="card border-primary border-bottom border-3 border-0">
             <div class="card-header">
@@ -40,11 +40,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th class="align-middle text-center">1</th>
-                            <td class="align-middle">Đội Trưởng Đội Bảo An</td>
+                        <tr v-for="(v, k) in list_chuc_vu">
+                            <th class="align-middle text-center">@{{ k + 1 }}</th>
+                            <td class="align-middle">@{{ v.ten_chuc_vu }}</td>
                             <td class="align-middle text-center">
-                                <button class="btn btn-success">Hoạt động</button>
+                                <button v-if="v.tinh_trang == 1" class="btn btn-success">Hoạt động</button>
+                                <button v-else class="btn btn-warning">Tạm Dừng</button>
                             </td>
                             <td class="align-middle text-center">
                                 <button class="btn btn-warning" data-bs-toggle="modal"
@@ -125,4 +126,27 @@
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    new Vue({
+        el      :       '#app',
+        data    :       {
+            list_chuc_vu   :   [],
+        },
+        created()       {
+            this.loadDataChucVu();
+        },
+        methods:        {
+            // loadDataChucVu  -> lên url http://127.0.0.1:8000/api/admin/chuc-vu/lay-du-lieu
+            loadDataChucVu()   {
+                axios
+                    .get('http://127.0.0.1:8000/api/admin/chuc-vu/lay-du-lieu')
+                    .then((res) =>  {
+                        this.list_chuc_vu = res.data.chuc_vu;
+                    });
+            }
+        },
+    });
+</script>
 @endsection

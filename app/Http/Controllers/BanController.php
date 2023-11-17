@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ChucVu;
+use App\Models\Ban;
 use Illuminate\Http\Request;
 
-class ChucVuController extends Controller
+class BanController extends Controller
 {
     public function index()
     {
-        return view('chuc_vu');
+        return view('ban');
     }
 
     public function getData()
     {
-        $data   = ChucVu::select('id', 'ten_chuc_vu', 'tinh_trang',)
+        $data   = Ban::select('id', 'ten_ban', 'slug_ban', 'id_khu_vuc', 'tinh_trang')
                          ->get(); // get là ra 1 danh sách
         return response()->json([
-            'chuc_vu'  =>  $data,
+            'ban'  =>  $data,
         ]);
     }
 }
