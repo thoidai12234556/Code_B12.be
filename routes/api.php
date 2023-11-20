@@ -26,7 +26,7 @@ Route::group(['prefix'  =>  '/admin'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [NhanVienController::class, 'getData']);
         Route::post('/tim-nhan-vien', [NhanVienController::class, 'searchNhanVien']);
-
+        Route::post('/tao-nhan-vien', [NhanVienController::class, 'createNhanVien']);
     });
 
     // Những gì của chức vụ thì ta sẽ nhét ở group này

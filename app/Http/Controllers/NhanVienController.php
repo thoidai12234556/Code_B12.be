@@ -36,4 +36,22 @@ class NhanVienController extends Controller
             'nhan_vien'  =>  $data,
         ]);
     }
+
+    public function createNhanVien(Request $request)
+    {
+        NhanVien::create([
+            'ho_va_ten'         => $request->ho_va_ten,
+            'email'             => $request->email,
+            'password'          => $request->password,
+            'so_dien_thoai'     => $request->so_dien_thoai,
+            'dia_chi'           => $request->dia_chi,
+            'id_chuc_vu'        => $request->id_chuc_vu,
+            'tinh_trang'        => $request->tinh_trang,
+        ]);
+
+        return response()->json([
+            'status'            =>   true,
+            'message'           =>   'Đã tạo mới nhân viên thành công!',
+        ]);
+    }
 }
