@@ -17,7 +17,7 @@ Route::group(['prefix'  =>  '/admin'], function() {
     Route::group(['prefix'  =>  '/danh-muc'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [DanhMucController::class, 'getData']);
-        Route::get('/tim-danh-muc', [DanhMucController::class, 'searchDanhMuc']);
+        Route::post('/tim-danh-muc', [DanhMucController::class, 'searchDanhMuc']);
 
     });
 
@@ -25,7 +25,7 @@ Route::group(['prefix'  =>  '/admin'], function() {
     Route::group(['prefix'  =>  '/nhan-vien'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [NhanVienController::class, 'getData']);
-        Route::get('/tim-nhan-vien', [NhanVienController::class, 'searchNhanVien']);
+        Route::post('/tim-nhan-vien', [NhanVienController::class, 'searchNhanVien']);
 
     });
 
@@ -33,28 +33,28 @@ Route::group(['prefix'  =>  '/admin'], function() {
     Route::group(['prefix'  =>  '/chuc-vu'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [ChucVuController::class, 'getData']);
-        Route::get('/tim-chuc-vu', [ChucVuController::class, 'searchChucVu']);
+        Route::post('/tim-chuc-vu', [ChucVuController::class, 'searchChucVu']);
     });
 
     // Những gì của chức vụ thì ta sẽ nhét ở group này
     Route::group(['prefix'  =>  '/ban'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [BanController::class, 'getData']);
-        Route::get('/tim-ban', [BanController::class, 'searchBan']);
+        Route::post('/tim-ban', [BanController::class, 'searchBan']);
     });
 
     // Những gì của chức vụ thì ta sẽ nhét ở group này
     Route::group(['prefix'  =>  '/khu-vuc'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [KhuVucController::class, 'getData']);
-        Route::get('/tim-khu-vuc', [KhuVucController::class, 'searchKhuVuc']);
+        Route::post('/tim-khu-vuc', [KhuVucController::class, 'searchKhuVuc']);
     });
 
     // Những gì của chức vụ thì ta sẽ nhét ở group này
     Route::group(['prefix'  =>  '/nguyen-lieu'], function() {
         // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [NguyenLieuController::class, 'getData']);
-        Route::get('/tim-nguyen-lieu', [NguyenLieuController::class, 'searchNguyenLieu']);
+        Route::post('/tim-nguyen-lieu', [NguyenLieuController::class, 'searchNguyenLieu']);
     });
 
     Route::group(['prefix'  =>  '/nhap-kho'], function() {

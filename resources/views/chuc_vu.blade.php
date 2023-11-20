@@ -33,6 +33,16 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th colspan="100%">
+                                <div class="input-group mb-3">
+                                    <input v-on:keyup.enter="searchChucVu()" v-model="key_search.abc" type="text" class="form-control" placeholder="Nhập thông tin cần tìm">
+                                    <button class="btn btn-primary" v-on:click="searchChucVu()">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
                             <th class="align-middle text-center">#</th>
                             <th class="align-middle text-center">Tên Chức Vụ</th>
                             <th class="align-middle text-center">Tình Trạng</th>
@@ -133,6 +143,7 @@
         el      :       '#app',
         data    :       {
             list_chuc_vu   :   [],
+            key_search : {}
         },
         created()       {
             this.loadDataChucVu();
@@ -142,6 +153,14 @@
             loadDataChucVu()   {
                 axios
                     .get('http://127.0.0.1:8000/api/admin/chuc-vu/lay-du-lieu')
+                    .then((res) =>  {
+                        this.list_chuc_vu = res.data.chuc_vu;
+                    });
+            },
+
+            searchChucVu(){
+                axios
+                    .post('http://127.0.0.1:8000/api/admin/chuc-vu/tim-chuc-vu', this.key_search)
                     .then((res) =>  {
                         this.list_chuc_vu = res.data.chuc_vu;
                     });

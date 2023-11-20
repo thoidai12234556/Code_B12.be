@@ -14,8 +14,24 @@ class NhanVienController extends Controller
 
     public function getData()
     {
-        $data   = NhanVien::select( 'id', 'ho_va_ten', 'email', 'password', 'so_dien_thoai', 'dia_chi', 'id_chuc_vu', 'tinh_trang',)
-            ->get(); // get là ra 1 danh sách
+        $data   = NhanVien::join('chuc_vus', 'chuc_vus.id', 'nhan_viens.id_chuc_vu')
+                        ->select('nhan_viens.*', 'chuc_vus.ten_chuc_vu')
+                        ->get(); // get là ra 1 danh sách
+
+        return response()->json([
+            'nhan_vien'  =>  $data,
+        ]);
+    }
+
+    public function searchNhanVien(Request $request)
+    {
+        $key = "%" . $request->abc . "%";
+
+        $data   = NhanVien::join('chuc_vus', 'chuc_vus.id', 'nhan_viens.id_chuc_vu')
+                          ->where('nhan_viens.ho_va_ten', 'like', $key)
+                          ->select('nhan_viens.*', 'chuc_vus.ten_chuc_vu')
+                          ->get();
+
         return response()->json([
             'nhan_vien'  =>  $data,
         ]);

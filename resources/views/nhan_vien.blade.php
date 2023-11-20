@@ -17,6 +17,16 @@
             <div class="card-body">
                 <table class="table table-bordered table-hover">
                     <thead>
+                        <tr>
+                            <th colspan="100%">
+                                <div class="input-group mb-3">
+                                    <input v-on:keyup.enter="searchNhanVien()" v-model="key_search.abc" type="text" class="form-control" placeholder="Nhập thông tin cần tìm">
+                                    <button class="btn btn-primary" v-on:click="searchNhanVien()">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
                         <tr class="text-center align-middle">
                             <th>#</th>
                             <th>Họ và Tên</th>
@@ -35,7 +45,7 @@
                             <td class="align-middle text-nowrap">@{{ v.email }}</td>
                             <td class="align-middle text-nowrap">@{{ v.so_dien_thoai }}</td>
                             <td class="align-middle text-nowrap">@{{ v.dia_chi }}</td>
-                            <td class="align-middle text-nowrap">@{{ v.id_chuc_vu }}</td>
+                            <td class="align-middle text-nowrap">@{{ v.ten_chuc_vu }}</td>
                             <td class="align-middle text-nowrap text-center">
                                 <button v-if="v.tinh_trang == 1" class="btn btn-success">Hoạt Động</button>
                                 <button v-else class="btn btn-warning">Tạm Dừng</button>
@@ -198,6 +208,7 @@
         el      :       '#app',
         data    :       {
             list_nhan_vien   :   [],
+            key_search       :   {}
         },
         created()       {
             this.loadDataNhanVien();
@@ -207,6 +218,13 @@
             loadDataNhanVien()   {
                 axios
                     .get('http://127.0.0.1:8000/api/admin/nhan-vien/lay-du-lieu')
+                    .then((res) =>  {
+                        this.list_nhan_vien = res.data.nhan_vien;
+                    });
+            },
+            searchNhanVien(){
+                axios
+                    .post('http://127.0.0.1:8000/api/admin/nhan-vien/tim-nhan-vien', this.key_search)
                     .then((res) =>  {
                         this.list_nhan_vien = res.data.nhan_vien;
                     });

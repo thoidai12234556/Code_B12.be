@@ -78,6 +78,14 @@
                     <div class="menu-title">Nguyên Liệu</div>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/admin/nhap-kho" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-map"></i>
+                    </div>
+                    <div class="menu-title">Nhập Kho</div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

@@ -14,8 +14,20 @@ class KhuVucController extends Controller
 
     public function getData()
     {
-        $data   = KhuVuc::select('id',   'ten_khu', 'slug_khu', 'tinh_trang')
+        $data   = KhuVuc::get(); // get là ra 1 danh sách
+
+        return response()->json([
+            'khu_vuc'  =>  $data,
+        ]);
+    }
+
+    public function searchKhuVuc(Request $request)
+    {
+        $key = "%" . $request->abc . "%";
+
+        $data   = KhuVuc::where('ten_khu', 'like', $key)
                          ->get(); // get là ra 1 danh sách
+
         return response()->json([
             'khu_vuc'  =>  $data,
         ]);

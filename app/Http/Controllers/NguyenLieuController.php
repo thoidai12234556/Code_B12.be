@@ -15,7 +15,8 @@ class NguyenLieuController extends Controller
     public function getData()
     {
         $data   = NguyenLieu::select('id',  'ten_nguyen_lieu', 'slug_nguyen_lieu', 'so_luong', 'gia', 'dvt', 'tinh_trang')
-                         ->get(); // get là ra 1 danh sách
+                            ->get(); // get là ra 1 danh sách
+
         return response()->json([
             'nguyen_lieu'  =>  $data,
         ]);
@@ -25,9 +26,9 @@ class NguyenLieuController extends Controller
     {
         $key = '%' . $request->abc . '%';
 
-        $data   = NguyenLieu::select('id',  'ten_nguyen_lieu', 'slug_nguyen_lieu', 'so_luong', 'gia', 'dvt', 'tinh_trang')
-                         ->where('ten_nguyen_lieu', $key)
-                         ->get(); // get là ra 1 danh sách
+        $data   = NguyenLieu::where('ten_nguyen_lieu', 'like', $key)
+                            ->get(); // get là ra 1 danh sách
+
         return response()->json([
             'nguyen_lieu'  =>  $data,
         ]);
