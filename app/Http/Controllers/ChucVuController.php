@@ -14,8 +14,20 @@ class ChucVuController extends Controller
 
     public function getData()
     {
-        $data   = ChucVu::select('id', 'ten_chuc_vu', 'tinh_trang',)
-                         ->get(); // get là ra 1 danh sách
+        $data   = ChucVu::get(); // get là ra 1 danh sách
+
+        return response()->json([
+            'chuc_vu'  =>  $data,
+        ]);
+    }
+
+    public function searchChucVu(Request $request)
+    {
+        $key = "%" . $request->abc . "%";
+
+        $data   = ChucVu::where('ten_chuc_vu', 'like', $key)
+                        ->get(); // get là ra 1 danh sách
+
         return response()->json([
             'chuc_vu'  =>  $data,
         ]);

@@ -64,6 +64,16 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th colspan="100%">
+                                    <div class="input-group mb-3">
+                                        <input v-on:keyup.enter="searchBan()" v-model="key_search.abc" type="text" class="form-control" placeholder="Nhập thông tin cần tìm">
+                                        <button class="btn btn-primary" v-on:click="searchBan()">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
                                 <th class="text-center align-middle text-nowrap">
                                     #
                                 </th>
@@ -96,7 +106,7 @@
                                     @{{ v.slug_ban }}
                                 </td>
                                 <td class="text-center align-middle text-nowrap">
-                                    @{{ v.id_khu_vuc }}
+                                    @{{ v.ten_khu }}
                                 </td>
                                 <td class="text-center align-middle text-nowrap">
                                     <button v-if="v.tinh_trang == 1" class="btn btn-success" style="width: 100px;">Hiển Thị</button>
@@ -204,6 +214,7 @@
         el      :       '#app',
         data    :       {
             list_ban   :   [],
+            key_search :   {}
         },
         created()       {
             this.loadDataBan();
@@ -213,6 +224,14 @@
             loadDataBan()   {
                 axios
                     .get('http://127.0.0.1:8000/api/admin/ban/lay-du-lieu')
+                    .then((res) =>  {
+                        this.list_ban = res.data.ban;
+                    });
+            },
+
+            searchBan(){
+                axios
+                    .post('http://127.0.0.1:8000/api/admin/ban/tim-ban', this.key_search)
                     .then((res) =>  {
                         this.list_ban = res.data.ban;
                     });
