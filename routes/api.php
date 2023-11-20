@@ -58,7 +58,6 @@ Route::group(['prefix'  =>  '/admin'], function() {
     });
 
     Route::group(['prefix'  =>  '/nhap-kho'], function() {
-        // Lấy dữ liệu  -> get
         Route::get('/lay-du-lieu', [NhapKhoController::class, 'getData']);
     });
 });
