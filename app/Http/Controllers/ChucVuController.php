@@ -32,4 +32,17 @@ class ChucVuController extends Controller
             'chuc_vu'  =>  $data,
         ]);
     }
+
+    public function createChucVu(Request $request)
+    {
+        ChucVu::create([
+            'ten_chuc_vu'      => $request->ten_chuc_vu,
+            'tinh_trang'       => $request->tinh_trang,
+        ]);
+
+        return response()->json([
+            'status'            =>   true,
+            'message'           =>   'Đã tạo mới chức vụ thành công!',
+        ]);
+    }
 }

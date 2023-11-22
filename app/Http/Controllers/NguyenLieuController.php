@@ -33,4 +33,21 @@ class NguyenLieuController extends Controller
             'nguyen_lieu'  =>  $data,
         ]);
     }
+
+    public function createNguyenLieu(Request $request)
+    {
+        NguyenLieu::create([
+            'ten_nguyen_lieu'       => $request->ten_nguyen_lieu,
+            'slug_nguyen_lieu'      => $request->slug_nguyen_lieu,
+            'so_luong'              => $request->so_luong,
+            'gia'                   => $request->gia,
+            'dvt'                   => $request->dvt,
+            'tinh_trang'            => $request->tinh_trang,
+        ]);
+
+        return response()->json([
+            'status'            =>   true,
+            'message'           =>   'Đã tạo mới danh mục thành công!',
+        ]);
+    }
 }

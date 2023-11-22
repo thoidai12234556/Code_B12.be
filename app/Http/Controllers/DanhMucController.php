@@ -34,4 +34,19 @@ class DanhMucController extends Controller
             'danh_muc'  =>  $data,
         ]);
     }
+
+    public function createDanhMuc(Request $request)
+    {
+        DanhMuc::create([
+            'ten_danh_muc'      => $request->ten_danh_muc,
+            'slug_danh_muc'     => $request->slug_danh_muc,
+            'id_danh_muc_cha'   => $request->id_danh_muc_cha,
+            'tinh_trang'        => $request->tinh_trang,
+        ]);
+
+        return response()->json([
+            'status'            =>   true,
+            'message'           =>   'Đã tạo mới danh mục thành công!',
+        ]);
+    }
 }
