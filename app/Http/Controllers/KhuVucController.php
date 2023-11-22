@@ -32,4 +32,18 @@ class KhuVucController extends Controller
             'khu_vuc'  =>  $data,
         ]);
     }
+
+    public function createKhuVuc(Request $request)
+    {
+        KhuVuc::create([
+            'ten_khu'           => $request->ten_khu,
+            'slug_khu'          => $request->slug_khu,
+            'tinh_trang'        => $request->tinh_trang,
+        ]);
+
+        return response()->json([
+            'status'            =>   true,
+            'message'           =>   'Đã tạo mới khu vực thành công!',
+        ]);
+    }
 }

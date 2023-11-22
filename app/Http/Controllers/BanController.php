@@ -36,4 +36,19 @@ class BanController extends Controller
             'ban'  =>  $data,
         ]);
     }
+
+    public function createBan(Request $request)
+    {
+        Ban::create([
+            'ten_ban'      => $request->ten_ban,
+            'slug_ban'     => $request->slug_ban,
+            'id_khu_vuc'   => $request->id_khu_vuc,
+            'tinh_trang'   => $request->tinh_trang,
+        ]);
+
+        return response()->json([
+            'status'            =>   true,
+            'message'           =>   'Đã tạo mới bàn thành công!',
+        ]);
+    }
 }
