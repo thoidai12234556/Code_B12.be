@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\NguyenLieu;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NguyenLieuController extends Controller
 {
@@ -49,5 +51,24 @@ class NguyenLieuController extends Controller
             'status'            =>   true,
             'message'           =>   'Đã tạo mới danh mục thành công!',
         ]);
+    }
+
+    //B24
+    public function deleteNguyenLieu($id)
+    {
+        try {
+            NguyenLieu::where('id', $id)->delete();
+
+            return response()->json([
+                'status'            =>   true,
+                'message'           =>   'Đã xóa thành công!',
+            ]);
+        } catch (Exception $e) {
+            Log::error("Lỗi xóa Chức Vụ" . $e);
+            return response()->json([
+                'status'            =>   false,
+                'message'           =>   'Không thể xóa!',
+            ]);
+        }
     }
 }

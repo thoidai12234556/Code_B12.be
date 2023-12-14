@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ban;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BanController extends Controller
 {
@@ -50,5 +52,24 @@ class BanController extends Controller
             'status'            =>   true,
             'message'           =>   'Đã tạo mới bàn thành công!',
         ]);
+    }
+
+    //B24
+    public function deleteBan($id)
+    {
+        try {
+            Ban::where('id', $id)->delete();
+
+            return response()->json([
+                'status'            =>   true,
+                'message'           =>   'Đã xóa thành công!',
+            ]);
+        } catch (Exception $e) {
+            Log::error("Lỗi xóa Chức Vụ" . $e);
+            return response()->json([
+                'status'            =>   false,
+                'message'           =>   'Không thể xóa!',
+            ]);
+        }
     }
 }

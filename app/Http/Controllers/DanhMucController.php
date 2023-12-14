@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DanhMuc;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DanhMucController extends Controller
 {
@@ -15,7 +17,7 @@ class DanhMucController extends Controller
     public function getData()
     {
         $data   = DanhMuc::select('id', 'ten_danh_muc', 'slug_danh_muc', 'tinh_trang', 'id_danh_muc_cha')
-                         ->get(); // get là ra 1 danh sách
+            ->get(); // get là ra 1 danh sách
 
         return response()->json([
             'danh_muc'  =>  $data,
@@ -27,8 +29,8 @@ class DanhMucController extends Controller
         $key = "%" . $request->abc . "%";
 
         $data   = DanhMuc::select('id', 'ten_danh_muc', 'slug_danh_muc', 'tinh_trang', 'id_danh_muc_cha')
-                            ->where('ten_danh_muc', 'like', $key)
-                            ->get();
+            ->where('ten_danh_muc', 'like', $key)
+            ->get();
 
         return response()->json([
             'danh_muc'  =>  $data,
@@ -48,5 +50,24 @@ class DanhMucController extends Controller
             'status'            =>   true,
             'message'           =>   'Đã tạo mới danh mục thành công!',
         ]);
+    }
+
+    //B24
+    public function deleteDanhMuc($id)
+    {
+        try {
+            DanhMuc::where('id', $id)->delete();
+
+            return response()->json([
+                'status'            =>   true,
+                'message'           =>   'Đã xóa thành công!',
+            ]);
+        } catch (Exception $e) {
+            Log::error("Lỗi xóa Danh Mục" . $e);
+            return response()->json([
+                'status'            =>   false,
+                'message'           =>   'Không thể xóa!',
+            ]);
+        }
     }
 }

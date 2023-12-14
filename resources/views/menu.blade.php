@@ -86,6 +86,30 @@
                     <div class="menu-title">Nhập Kho</div>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/admin/mon-an" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <div class="menu-title">Món Ăn</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/nha-cung-cap" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-brands fa-guilded"></i>
+                    </div>
+                    <div class="menu-title">Nhà Cung Cấp</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/dang-nhap" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-brands fa-guilded"></i>
+                    </div>
+                    <div class="menu-title">Đăng Nhập</div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChucVu;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use SebastianBergmann\Diff\Chunk;
 
 class ChucVuController extends Controller
 {
@@ -44,5 +47,24 @@ class ChucVuController extends Controller
             'status'            =>   true,
             'message'           =>   'Đã tạo mới chức vụ thành công!',
         ]);
+    }
+
+    //B24
+    public function deleteChucVu($id)
+    {
+        try {
+            ChucVu::where('id', $id)->delete();
+
+            return response()->json([
+                'status'            =>   true,
+                'message'           =>   'Đã xóa thành công!',
+            ]);
+        } catch (Exception $e) {
+            Log::error("Lỗi xóa Chức Vụ" . $e);
+            return response()->json([
+                'status'            =>   false,
+                'message'           =>   'Không thể xóa!',
+            ]);
+        }
     }
 }

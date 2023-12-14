@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\NhanVien;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NhanVienController extends Controller
 {
@@ -15,8 +17,8 @@ class NhanVienController extends Controller
     public function getData()
     {
         $data   = NhanVien::join('chuc_vus', 'chuc_vus.id', 'nhan_viens.id_chuc_vu')
-                        ->select('nhan_viens.*', 'chuc_vus.ten_chuc_vu')
-                        ->get(); // get là ra 1 danh sách
+            ->select('nhan_viens.*', 'chuc_vus.ten_chuc_vu')
+            ->get(); // get là ra 1 danh sách
 
         return response()->json([
             'nhan_vien'  =>  $data,
@@ -28,9 +30,9 @@ class NhanVienController extends Controller
         $key = "%" . $request->abc . "%";
 
         $data   = NhanVien::join('chuc_vus', 'chuc_vus.id', 'nhan_viens.id_chuc_vu')
-                          ->where('nhan_viens.ho_va_ten', 'like', $key)
-                          ->select('nhan_viens.*', 'chuc_vus.ten_chuc_vu')
-                          ->get();
+            ->where('nhan_viens.ho_va_ten', 'like', $key)
+            ->select('nhan_viens.*', 'chuc_vus.ten_chuc_vu')
+            ->get();
 
         return response()->json([
             'nhan_vien'  =>  $data,
@@ -53,5 +55,23 @@ class NhanVienController extends Controller
             'status'            =>   true,
             'message'           =>   'Đã tạo mới nhân viên thành công!',
         ]);
+    }
+
+    public function deleteNhanVien($id)
+    {
+        try {
+            NhanVien::where('id', $id)->delete();
+
+            return response()->json([
+                'status'            =>   true,
+                'message'           =>   'Đã xóa thành công!',
+            ]);
+        } catch (Exception $e) {
+            Log::error("Lỗi xóa Nhân Viên" . $e);
+            return response()->json([
+                'status'            =>   false,
+                'message'           =>   'Không thể xóa!',
+            ]);
+        }
     }
 }
